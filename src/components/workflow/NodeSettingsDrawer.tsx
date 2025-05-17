@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import { 
   Drawer, 
   DrawerClose, 
   DrawerContent, 
+  DrawerDescription, 
   DrawerFooter, 
   DrawerHeader, 
   DrawerTitle
@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useWorkflowStore } from "./workflowStore";
 import { useToast } from "@/hooks/use-toast";
-import { save, x } from "lucide-react";
+import { Save, X } from "lucide-react";
 
 const NodeSettingsDrawer = () => {
   const { showNodeSettings, selectedNodeId, nodes, closeNodeSettings, updateNodeData } = useWorkflowStore();
@@ -260,11 +260,11 @@ const NodeSettingsDrawer = () => {
           <div className="flex justify-between w-full">
             <DrawerClose asChild>
               <Button variant="outline" className="gap-1">
-                <x className="h-4 w-4" /> Cancel
+                <X className="h-4 w-4" /> Cancel
               </Button>
             </DrawerClose>
             <Button className="gap-1" onClick={handleSave}>
-              <save className="h-4 w-4" /> Save Changes
+              <Save className="h-4 w-4" /> Save Changes
             </Button>
           </div>
         </DrawerFooter>
