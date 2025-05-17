@@ -1,16 +1,7 @@
 
 import React, { memo } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
-
-export interface NodeData {
-  label: string;
-  description?: string;
-  nodeType: 'trigger' | 'action' | 'helper';
-  icon?: React.ReactNode;
-  inputs?: { name: string; description?: string }[];
-  outputs?: { name: string; description?: string }[];
-  parameters?: { name: string; type: string; defaultValue?: any }[];
-}
+import { NodeData } from './NodeTypes';
 
 const WorkflowNode = ({ data, isConnectable, selected }: NodeProps<NodeData>) => {
   const nodeClass = `${data.nodeType}-node`;

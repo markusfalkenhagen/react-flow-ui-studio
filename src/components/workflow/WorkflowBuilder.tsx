@@ -2,8 +2,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { 
   ReactFlow, 
-  Node as ReactFlowNode,
-  Edge as ReactFlowEdge,
   MiniMap, 
   Controls, 
   Background, 
@@ -14,21 +12,21 @@ import {
   useReactFlow,
   Panel,
   MarkerType,
-  NodeTypes,
+  NodeTypes as ReactFlowNodeTypes,
   EdgeTypes
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import WorkflowNode from './WorkflowNode';
 import ButtonEdge from './ButtonEdge';
-import { NodeData, WorkflowNode as WorkflowNodeType } from './NodeTypes';
+import { NodeData } from './NodeTypes';
 import { initialEdges, initialNodes, nodeCategories } from './initialData';
 import NodeCatalog from './NodeCatalog';
 import WorkflowTools from './WorkflowTools';
 import { useToast } from '@/hooks/use-toast';
 
 // Define node types
-const nodeTypes: NodeTypes = {
+const nodeTypes: ReactFlowNodeTypes = {
   custom: WorkflowNode,
 };
 
@@ -40,9 +38,9 @@ const edgeTypes: EdgeTypes = {
 const WorkflowBuilder: React.FC = () => {
   const toast = useToast();
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  // Define types explicitly for nodes and edges
-  const [nodes, setNodes, onNodesChange] = useNodesState<ReactFlowNode<NodeData>>(initialNodes as ReactFlowNode<NodeData>[]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<ReactFlowEdge>(initialEdges);
+  // Define types explicitly and use the generic with Record<string, unknown>
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   
   const onConnect = useCallback((connection: Connection) => {
@@ -82,7 +80,7 @@ const WorkflowBuilder: React.FC = () => {
         y: event.clientY - reactFlowBounds.top,
       });
 
-      const newNode: ReactFlowNode<NodeData> = {
+      const newNode = {
         id: `node-${Date.now()}`,
         type: 'custom',
         position,
