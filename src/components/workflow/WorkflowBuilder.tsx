@@ -1,31 +1,31 @@
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { 
   ReactFlow, 
-  Node, 
-  Edge, 
   MiniMap, 
   Controls, 
   Background, 
-  useNodesState, 
-  useEdgesState, 
   addEdge, 
   Connection, 
   useReactFlow,
   Panel,
   MarkerType,
   NodeTypes,
-  EdgeTypes
+  EdgeTypes,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import WorkflowNode from './WorkflowNode';
 import ButtonEdge from './ButtonEdge';
-import { NodeData } from './NodeTypes';
 import { initialEdges, initialNodes, nodeCategories } from './initialData';
 import NodeCatalog from './NodeCatalog';
 import WorkflowTools from './WorkflowTools';
 import { useToast } from '@/hooks/use-toast';
+import { useWorkflowStore } from './workflowStore';
+import NodeSettingsDrawer from './NodeSettingsDrawer';
+import ImportWorkflowDialog from './ImportWorkflowDialog';
+import CredentialsDialog from './CredentialsDialog';
+import WebhookDialog from './WebhookDialog';
 
 // Define node types
 const nodeTypes: NodeTypes = {
@@ -40,9 +40,46 @@ const edgeTypes: EdgeTypes = {
 const WorkflowBuilder: React.FC = () => {
   const toast = useToast();
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState<NodeData>(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
+  
+  // Use store instead of useState hooks
+  const {
+    nodes, 
+    edges, 
+    setNodes, 
+    setEdges,
+    openWebhookSettings,
+  } = useWorkflowStore();
+  
+  // Initialize with sample data if empty
+  useEffect(() => {
+    if (nodes.length === 0) {
+      setNodes(initialNodes);
+      setEdges(initialEdges);
+    }
+  }, [nodes.length, setNodes, setEdges]);
+  
+  const onNodesChange = useCallback((changes: any) => {
+    setNodes((nds) => {
+      return nds.map(node => {
+        const change = changes.find((c: any) => c.id === node.id);
+        if (change?.type === 'position' && change?.position) {
+          return { ...node, position: change.position };
+        }
+        return node;
+      });
+    });
+  }, [setNodes]);
+  
+  const onEdgesChange = useCallback((changes: any) => {
+    setEdges(eds => {
+      const edgesToDelete = changes.filter((c: any) => c.type === 'remove').map((c: any) => c.id);
+      if (edgesToDelete.length > 0) {
+        return eds.filter(e => !edgesToDelete.includes(e.id));
+      }
+      return eds;
+    });
+  }, [setEdges]);
   
   const onConnect = useCallback((connection: Connection) => {
     const newEdge = {
@@ -79,14 +116,17 @@ const WorkflowBuilder: React.FC = () => {
         y: event.clientY - reactFlowBounds.top,
       });
 
-      const newNode: Node<NodeData> = {
+      const newNode = {
         id: `node-${Date.now()}`,
         type: 'custom',
         position,
-        data: nodeData
+        data: {
+          ...nodeData,
+          id: `node-${Date.now()}`,
+        }
       };
 
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds) => [...nds, newNode]);
       
       toast.toast({
         title: "Node Added",
@@ -102,21 +142,24 @@ const WorkflowBuilder: React.FC = () => {
   };
 
   const onSaveWorkflow = () => {
-    const workflow = { nodes, edges };
+    const workflow = useWorkflowStore.getState().exportWorkflow();
+    localStorage.setItem('n8n-workflow', JSON.stringify(workflow));
     console.log('Saving workflow:', workflow);
     toast.toast({
       title: "Workflow Saved",
-      description: "Your workflow has been saved successfully."
+      description: "Your workflow has been saved to local storage."
     });
   };
 
   const onClearWorkflow = () => {
-    setNodes([]);
-    setEdges([]);
-    toast.toast({
-      title: "Workflow Cleared",
-      description: "All nodes and edges have been removed."
-    });
+    if (window.confirm("Are you sure you want to clear the workflow? All nodes and connections will be removed.")) {
+      setNodes([]);
+      setEdges([]);
+      toast.toast({
+        title: "Workflow Cleared",
+        description: "All nodes and edges have been removed."
+      });
+    }
   };
 
   const onAutoLayout = () => {
@@ -172,8 +215,25 @@ const WorkflowBuilder: React.FC = () => {
               onLayout={onAutoLayout}
             />
           </Panel>
+          
+          <Panel position="bottom-center" className="p-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="bg-white"
+              onClick={openWebhookSettings}
+            >
+              Webhook Settings
+            </Button>
+          </Panel>
         </ReactFlow>
       </div>
+      
+      {/* Modals and Dialogs */}
+      <NodeSettingsDrawer />
+      <ImportWorkflowDialog />
+      <CredentialsDialog />
+      <WebhookDialog />
     </div>
   );
 };
