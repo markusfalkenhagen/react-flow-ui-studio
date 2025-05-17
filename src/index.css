@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './components/workflow/WorkflowTheme.css';
 
 @layer base {
   :root {
@@ -50,6 +51,15 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Workflow specific variables */
+    --workflow-bg: #f9f9f9;
+    --workflow-node-bg: #ffffff;
+    --workflow-node-selected: #ff6d5a;
+    --workflow-node-border: #e5e5e5;
+    --workflow-node-trigger: #6e44ff;
+    --workflow-node-action: #14aaf5;
+    --workflow-node-helper: #fcbd01;
   }
 
   .dark {
@@ -88,6 +98,15 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Workflow dark mode variables */
+    --workflow-bg: #1a1a1a;
+    --workflow-node-bg: #2a2a2a;
+    --workflow-node-selected: #ff6d5a;
+    --workflow-node-border: #444444;
+    --workflow-node-trigger: #8b65ff;
+    --workflow-node-action: #35b6f6;
+    --workflow-node-helper: #ffd54f;
   }
 }
 
@@ -171,4 +190,21 @@
 .edgebutton-foreignobject {
   @apply w-10 h-10 flex items-center justify-center;
   background-color: transparent;
+}
+
+/* Additional UI improvements */
+.workflow-header {
+  @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-lg;
+}
+
+.tutorial-badge {
+  @apply bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full text-xs font-medium;
+}
+
+.feature-badge {
+  @apply bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs font-medium;
+}
+
+.pro-feature {
+  @apply bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full text-xs font-medium;
 }

@@ -2,8 +2,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { 
   ReactFlow, 
-  Node, 
-  Edge, 
+  Node as ReactFlowNode,
+  Edge as ReactFlowEdge,
   MiniMap, 
   Controls, 
   Background, 
@@ -21,7 +21,7 @@ import '@xyflow/react/dist/style.css';
 
 import WorkflowNode from './WorkflowNode';
 import ButtonEdge from './ButtonEdge';
-import { NodeData } from './NodeTypes';
+import { NodeData, WorkflowNode as WorkflowNodeType } from './NodeTypes';
 import { initialEdges, initialNodes, nodeCategories } from './initialData';
 import NodeCatalog from './NodeCatalog';
 import WorkflowTools from './WorkflowTools';
@@ -40,8 +40,9 @@ const edgeTypes: EdgeTypes = {
 const WorkflowBuilder: React.FC = () => {
   const toast = useToast();
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState<NodeData>(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  // Define types explicitly for nodes and edges
+  const [nodes, setNodes, onNodesChange] = useNodesState<ReactFlowNode<NodeData>>(initialNodes as ReactFlowNode<NodeData>[]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<ReactFlowEdge>(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   
   const onConnect = useCallback((connection: Connection) => {
@@ -70,20 +71,22 @@ const WorkflowBuilder: React.FC = () => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect();
-      const nodeData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
-
-      if (!reactFlowBounds || !reactFlowInstance) return;
+      const nodeDataString = event.dataTransfer.getData('application/reactflow');
+      
+      if (!reactFlowBounds || !reactFlowInstance || !nodeDataString) return;
+      
+      const nodeData: NodeData = JSON.parse(nodeDataString);
 
       const position = reactFlowInstance.screenToFlowPosition({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
 
-      const newNode: Node<NodeData> = {
+      const newNode: ReactFlowNode<NodeData> = {
         id: `node-${Date.now()}`,
         type: 'custom',
         position,
-        data: nodeData
+        data: nodeData,
       };
 
       setNodes((nds) => nds.concat(newNode));
