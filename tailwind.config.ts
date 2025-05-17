@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,6 +25,17 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				workflow: {
+					bg: '#f9f9f9',
+					node: {
+						bg: '#ffffff',
+						selected: '#ff6d5a',
+						border: '#e5e5e5',
+						trigger: '#6e44ff',
+						action: '#14aaf5',
+						helper: '#fcbd01',
+					},
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +99,76 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* React Flow specific styles */
+.react-flow__node {
+  @apply font-sans;
+}
+
+.react-flow__node-custom {
+  @apply p-0 rounded-md border border-workflow-node-border bg-workflow-node-bg shadow-sm;
+  width: 220px;
+}
+
+.react-flow__node.selected {
+  @apply border-2 border-workflow-node-selected;
+}
+
+.react-flow__handle {
+  @apply w-3 h-3 rounded-full border-2 bg-white;
+}
+
+.react-flow__handle.input-handle {
+  @apply border-workflow-node-action top-0 -translate-y-1/2;
+}
+
+.react-flow__handle.output-handle {
+  @apply border-workflow-node-action bottom-0 translate-y-1/2;
+}
+
+.trigger-node .react-flow__handle {
+  @apply border-workflow-node-trigger;
+}
+
+.action-node .react-flow__handle {
+  @apply border-workflow-node-action;
+}
+
+.helper-node .react-flow__handle {
+  @apply border-workflow-node-helper;
+}
+
+.react-flow__edge-path {
+  @apply stroke-2 stroke-gray-300;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  @apply stroke-workflow-node-selected;
+}
+
+.node-drag {
+  @apply w-48 h-16 flex items-center justify-center p-2 rounded-md cursor-grab border border-workflow-node-border bg-workflow-node-bg;
+}
+
+.node-drag.trigger {
+  @apply border-l-4 border-l-workflow-node-trigger;
+}
+
+.node-drag.action {
+  @apply border-l-4 border-l-workflow-node-action;
+}
+
+.node-drag.helper {
+  @apply border-l-4 border-l-workflow-node-helper;
+}
+
+.edgebutton {
+  @apply w-5 h-5 bg-workflow-node-bg rounded-full border border-gray-200 flex items-center justify-center cursor-pointer;
+  position: absolute;
+}
+
+.edgebutton-foreignobject {
+  @apply w-10 h-10 flex items-center justify-center;
+  background-color: transparent;
 }
