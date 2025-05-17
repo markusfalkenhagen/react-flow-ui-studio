@@ -1,83 +1,87 @@
 
 import React, { memo } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
-import { Badge } from '@/components/ui/badge';
-import { useWorkflowStore } from './workflowStore';
-import { Settings } from 'lucide-react';
 import { NodeData } from './NodeTypes';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
+import { settings } from 'lucide-react';
+import { useWorkflowStore } from './workflowStore';
 
-// Define the WorkflowNode component
 const WorkflowNode = ({ data, isConnectable, selected }: NodeProps<NodeData>) => {
   const { openNodeSettings } = useWorkflowStore();
-  const nodeType = data?.nodeType || 'action';
-  const disabled = data?.disabled || false;
-  
-  // Create a settings click handler
-  const onSettingsClick = () => {
-    if (data?.id) {
-      openNodeSettings(data.id);
-    }
+  const nodeClass = `${data.nodeType}-node`;
+  const isDisabled = data.disabled;
+
+  const handleDoubleClick = () => {
+    openNodeSettings(data.id || '');
   };
-  
+
   return (
-    <div className={`relative p-4 shadow-md rounded-lg ${selected ? 'ring-2 ring-blue-500' : ''} 
-      ${disabled ? 'opacity-60' : ''} 
-      ${nodeType === 'trigger' ? 'bg-blue-50 border-blue-200' : 
-        nodeType === 'helper' ? 'bg-purple-50 border-purple-200' : 'bg-white border-gray-200'} 
-      border-2`}
+    <div 
+      className={`bg-white rounded-md shadow-sm border ${nodeClass} ${selected ? 'border-workflow-node-selected border-2' : 'border-workflow-node-border'} ${isDisabled ? 'opacity-50' : ''}`}
+      style={{ width: '220px' }}
+      onDoubleClick={handleDoubleClick}
     >
-      {/* Left handle for inputs */}
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
-      
-      {/* Right handle for outputs */}
-      <Handle type="source" position={Position.Right} isConnectable={isConnectable} />
-      
-      <div className="flex items-center justify-between mb-2">
-        <Badge variant={nodeType === 'trigger' ? 'default' : nodeType === 'helper' ? 'secondary' : 'outline'} className="text-xs">
-          {data?.nodeType || 'Node'}
-        </Badge>
+      <div className="p-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {data.icon && <div className="w-5 h-5 flex-shrink-0">{data.icon}</div>}
+            <div className="font-medium truncate">{data.label}</div>
+          </div>
+          
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openNodeSettings(data.id || '');
+                }}
+                className="p-1 rounded-full hover:bg-gray-100"
+              >
+                <settings className="h-4 w-4 text-gray-500" />
+              </button>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto">Settings</HoverCardContent>
+          </HoverCard>
+        </div>
         
-        <button 
-          onClick={onSettingsClick}
-          className="w-6 h-6 rounded hover:bg-gray-100 flex items-center justify-center"
-          title="Node Settings"
-        >
-          <Settings size={14} />
-        </button>
+        {data.description && <div className="text-xs text-gray-500 mt-1">{data.description}</div>}
+        
+        {data.type && (
+          <div className="mt-2">
+            <Badge variant="outline" className="text-xs">
+              {data.type}
+              {data.typeVersion && <span className="ml-1 opacity-70">v{data.typeVersion}</span>}
+            </Badge>
+          </div>
+        )}
+        
+        {data.webhookPath && (
+          <div className="mt-2">
+            <Badge variant="outline" className="text-xs bg-blue-50">
+              {data.webhookPath}
+            </Badge>
+          </div>
+        )}
       </div>
       
-      <div className="font-medium text-sm mb-2">{data?.label || 'Node'}</div>
+      <div className="p-3 border-t border-gray-100 text-xs text-gray-500 flex justify-between items-center">
+        <div>Double-click to configure</div>
+        {isDisabled && <Badge variant="destructive" className="text-[10px] h-5">Disabled</Badge>}
+      </div>
       
-      {/* Show description if available */}
-      {data?.description && (
-        <div className="text-xs text-gray-500 mt-1 mb-2">{data.description}</div>
-      )}
-      
-      {/* Show node type and version */}
-      {data?.type && (
-        <div className="flex flex-col gap-1 mt-3 text-xs">
-          <div className="flex items-center justify-between">
-            <span className="text-gray-500">Type:</span>
-            <span className="font-mono bg-gray-100 px-1 rounded">{data.type}</span>
-          </div>
-          {data?.typeVersion && (
-            <div className="flex items-center justify-between">
-              <span className="text-gray-500">Version:</span>
-              <span className="font-mono bg-gray-100 px-1 rounded">{data.typeVersion}</span>
-            </div>
-          )}
-        </div>
-      )}
-      
-      {/* Show webhook path if available */}
-      {data?.webhookPath && (
-        <div className="flex flex-col gap-1 mt-2 text-xs">
-          <div className="flex items-center justify-between">
-            <span className="text-gray-500">Webhook:</span>
-            <span className="font-mono bg-gray-100 px-1 rounded truncate max-w-[120px]">{data.webhookPath}</span>
-          </div>
-        </div>
-      )}
+      <Handle
+        type="target"
+        position={Position.Top}
+        className="input-handle"
+        isConnectable={isConnectable && !isDisabled}
+      />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        className="output-handle"
+        isConnectable={isConnectable && !isDisabled}
+      />
     </div>
   );
 };

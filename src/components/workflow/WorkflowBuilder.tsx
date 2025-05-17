@@ -26,7 +26,6 @@ import NodeSettingsDrawer from './NodeSettingsDrawer';
 import ImportWorkflowDialog from './ImportWorkflowDialog';
 import CredentialsDialog from './CredentialsDialog';
 import WebhookDialog from './WebhookDialog';
-import { Button } from '@/components/ui/button'; // Import the Button component
 
 // Define node types
 const nodeTypes: NodeTypes = {
@@ -61,8 +60,8 @@ const WorkflowBuilder: React.FC = () => {
   }, [nodes.length, setNodes, setEdges]);
   
   const onNodesChange = useCallback((changes: any) => {
-    setNodes((nds: any) => {
-      return nds.map((node: any) => {
+    setNodes((nds) => {
+      return nds.map(node => {
         const change = changes.find((c: any) => c.id === node.id);
         if (change?.type === 'position' && change?.position) {
           return { ...node, position: change.position };
@@ -73,10 +72,10 @@ const WorkflowBuilder: React.FC = () => {
   }, [setNodes]);
   
   const onEdgesChange = useCallback((changes: any) => {
-    setEdges((eds: any) => {
+    setEdges(eds => {
       const edgesToDelete = changes.filter((c: any) => c.type === 'remove').map((c: any) => c.id);
       if (edgesToDelete.length > 0) {
-        return eds.filter((e: any) => !edgesToDelete.includes(e.id));
+        return eds.filter(e => !edgesToDelete.includes(e.id));
       }
       return eds;
     });
@@ -90,7 +89,7 @@ const WorkflowBuilder: React.FC = () => {
         type: MarkerType.ArrowClosed,
       },
     };
-    setEdges((eds: any) => addEdge(newEdge, eds));
+    setEdges((eds) => addEdge(newEdge, eds));
     
     toast.toast({
       title: "Connection Created",
@@ -127,7 +126,7 @@ const WorkflowBuilder: React.FC = () => {
         }
       };
 
-      setNodes((nds: any) => [...nds, newNode]);
+      setNodes((nds) => [...nds, newNode]);
       
       toast.toast({
         title: "Node Added",

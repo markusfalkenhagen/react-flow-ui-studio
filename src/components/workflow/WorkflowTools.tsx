@@ -1,11 +1,11 @@
 
 import { Button } from '@/components/ui/button';
 import { 
-  Save, 
-  X, 
-  Upload, 
-  Download, 
-  Settings 
+  save, 
+  x, 
+  upload, 
+  download, 
+  settings 
 } from 'lucide-react';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { useWorkflowStore } from './workflowStore';
@@ -45,7 +45,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={onSave}>
-              <Save className="h-4 w-4 mr-2" />
+              <save className="h-4 w-4 mr-2" />
               <span>Save</span>
             </Button>
           </TooltipTrigger>
@@ -55,7 +55,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={openImportDialog}>
-              <Upload className="h-4 w-4 mr-2" />
+              <upload className="h-4 w-4 mr-2" />
               <span>Import</span>
             </Button>
           </TooltipTrigger>
@@ -65,7 +65,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={handleExport}>
-              <Download className="h-4 w-4 mr-2" />
+              <download className="h-4 w-4 mr-2" />
               <span>Export</span>
             </Button>
           </TooltipTrigger>
@@ -75,7 +75,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={onLayout}>
-              <Settings className="h-4 w-4 mr-2" />
+              <settings className="h-4 w-4 mr-2" />
               <span>Layout</span>
             </Button>
           </TooltipTrigger>
@@ -85,7 +85,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={openCredentialSettings}>
-              <Settings className="h-4 w-4 mr-2" />
+              <settings className="h-4 w-4 mr-2" />
               <span>Credentials</span>
             </Button>
           </TooltipTrigger>
@@ -95,7 +95,7 @@ const WorkflowTools: React.FC<WorkflowToolsProps> = ({ onSave, onClear, onLayout
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline" size="sm" onClick={onClear} className="text-red-500 hover:text-red-600 hover:border-red-200">
-              <X className="h-4 w-4 mr-2" />
+              <x className="h-4 w-4 mr-2" />
               <span>Clear</span>
             </Button>
           </TooltipTrigger>
