@@ -41,8 +41,8 @@ interface APISettings {
   anthropicApiKey: string;
   geminiApiKey: string;
   model: string;
-  temperature: number;
-  maxTokens: number;
+  temperature: string;
+  maxTokens: string;
 }
 
 interface AgentSettings {
@@ -50,7 +50,7 @@ interface AgentSettings {
   designerEnabled: boolean;
   implementerEnabled: boolean;
   qaEnabled: boolean;
-  maxSteps: number;
+  maxSteps: string;
   parallelExecution: boolean;
 }
 
@@ -67,8 +67,8 @@ export function SettingsPage() {
       anthropicApiKey: '',
       geminiApiKey: '',
       model: 'gpt-4',
-      temperature: 0.7,
-      maxTokens: 2048
+      temperature: '0.7',
+      maxTokens: '2048'
     }
   });
 
@@ -78,7 +78,7 @@ export function SettingsPage() {
       designerEnabled: true,
       implementerEnabled: true,
       qaEnabled: true,
-      maxSteps: 10,
+      maxSteps: '10',
       parallelExecution: false
     }
   });
@@ -325,7 +325,6 @@ export function SettingsPage() {
                                   min="0"
                                   max="2"
                                   {...field}
-                                  onChange={(e) => field.onChange(parseFloat(e.target.value))}
                                 />
                               </FormControl>
                               <FormDescription>
@@ -348,7 +347,6 @@ export function SettingsPage() {
                                   min="1"
                                   max="8000"
                                   {...field}
-                                  onChange={(e) => field.onChange(parseInt(e.target.value))}
                                 />
                               </FormControl>
                               <FormDescription>
@@ -447,7 +445,6 @@ export function SettingsPage() {
                                   min="1"
                                   max="20"
                                   {...field}
-                                  onChange={(e) => field.onChange(parseInt(e.target.value))}
                                 />
                               </FormControl>
                               <FormDescription>
