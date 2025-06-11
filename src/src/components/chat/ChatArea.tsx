@@ -6,6 +6,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { MessageList } from "./MessageList";
 import { MessageInput } from "./MessageInput";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { Bot, Activity } from "lucide-react";
 
 export function ChatArea() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -22,11 +24,13 @@ export function ChatArea() {
   }, []);
 
   useEffect(() => {
-    // Add initial greeting message
-    addMessage({
-      text: "Hello! I'm FlowHero with multi-agent capabilities. I can break down complex tasks into steps and show you the workflow in real-time. How can I assist you today?",
-      sender: "assistant",
-    });
+    // Add initial greeting message with animation delay
+    setTimeout(() => {
+      addMessage({
+        text: "Hello! I'm FlowHero with multi-agent capabilities. I can break down complex tasks into steps and show you the workflow in real-time. How can I assist you today?",
+        sender: "assistant",
+      });
+    }, 500);
   }, [addMessage]);
 
   const simulateAgentWorkflow = async (userText: string) => {
@@ -92,15 +96,46 @@ export function ChatArea() {
   };
 
   return (
-    <div className="flex h-full flex-col border-r">
-      <div className="p-4 border-b bg-background">
-        <h2 className="text-lg font-semibold">FlowHero Chat</h2>
-        <p className="text-sm text-muted-foreground">
-          Multi-agent AI assistance with workflow visualization
-        </p>
-      </div>
+    <motion.div 
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="flex h-full flex-col border-r bg-gradient-to-b from-background to-background/95"
+    >
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="p-6 border-b bg-gradient-to-r from-primary/5 to-primary/10 backdrop-blur-sm"
+      >
+        <div className="flex items-center gap-3 mb-2">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="relative"
+          >
+            <Bot className="h-8 w-8 text-primary" />
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+            />
+          </motion.div>
+          <div>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              FlowHero Chat
+            </h2>
+            <div className="flex items-center gap-2 mt-1">
+              <Activity className="h-3 w-3 text-green-500" />
+              <p className="text-sm text-muted-foreground">
+                Multi-agent AI assistance with workflow visualization
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
       <MessageList messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
-    </div>
+    </motion.div>
   );
 }
