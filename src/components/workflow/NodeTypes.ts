@@ -2,8 +2,6 @@
 import { Node } from '@xyflow/react';
 
 export interface NodeData {
-  id?: string;
-  position?: { x: number; y: number };
   label: string;
   description?: string;
   nodeType: 'trigger' | 'action' | 'helper';

@@ -72,6 +72,57 @@ export type Database = {
         }
         Relationships: []
       }
+      calendar_events: {
+        Row: {
+          all_day: boolean | null
+          created_at: string
+          description: string | null
+          end_time: string
+          id: string
+          location: string | null
+          recurrence_pattern: Json | null
+          recurring: boolean | null
+          reminder: boolean | null
+          reminder_time: unknown | null
+          start_time: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          all_day?: boolean | null
+          created_at?: string
+          description?: string | null
+          end_time: string
+          id?: string
+          location?: string | null
+          recurrence_pattern?: Json | null
+          recurring?: boolean | null
+          reminder?: boolean | null
+          reminder_time?: unknown | null
+          start_time: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          all_day?: boolean | null
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          id?: string
+          location?: string | null
+          recurrence_pattern?: Json | null
+          recurring?: boolean | null
+          reminder?: boolean | null
+          reminder_time?: unknown | null
+          start_time?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           chat_id: string
@@ -106,6 +157,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string
+          current_step: number
+          id: string
+          is_completed: boolean
+          metadata: Json | null
+          session_type: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_step?: number
+          id?: string
+          is_completed?: boolean
+          metadata?: Json | null
+          session_type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_step?: number
+          id?: string
+          is_completed?: boolean
+          metadata?: Json | null
+          session_type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       chats: {
         Row: {
@@ -161,6 +245,188 @@ export type Database = {
         }
         Relationships: []
       }
+      copywriting_results: {
+        Row: {
+          call_to_action: string | null
+          content: string
+          copy_type: string | null
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          key_benefits: string | null
+          product_service: string | null
+          target_audience: string | null
+          title: string | null
+          tone: Database["public"]["Enums"]["story_tone"] | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          call_to_action?: string | null
+          content: string
+          copy_type?: string | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          key_benefits?: string | null
+          product_service?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          call_to_action?: string | null
+          content?: string
+          copy_type?: string | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          key_benefits?: string | null
+          product_service?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      crm_contacts: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string | null
+          first_name: string
+          id: string
+          last_contacted: string | null
+          last_name: string
+          notes: string | null
+          phone: string | null
+          position: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          first_name: string
+          id?: string
+          last_contacted?: string | null
+          last_name: string
+          notes?: string | null
+          phone?: string | null
+          position?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          first_name?: string
+          id?: string
+          last_contacted?: string | null
+          last_name?: string
+          notes?: string | null
+          phone?: string | null
+          position?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      design_assets: {
+        Row: {
+          asset_type: string
+          canva_asset_id: string
+          created_at: string | null
+          design_id: string | null
+          id: string
+          metadata: Json | null
+          name: string | null
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          asset_type: string
+          canva_asset_id: string
+          created_at?: string | null
+          design_id?: string | null
+          id?: string
+          metadata?: Json | null
+          name?: string | null
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          asset_type?: string
+          canva_asset_id?: string
+          created_at?: string | null
+          design_id?: string | null
+          id?: string
+          metadata?: Json | null
+          name?: string | null
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "design_assets_design_id_fkey"
+            columns: ["design_id"]
+            isOneToOne: false
+            referencedRelation: "designs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      designs: {
+        Row: {
+          canva_design_id: string
+          canva_urls: Json | null
+          created_at: string | null
+          design_type: string | null
+          id: string
+          metadata: Json | null
+          status: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          canva_design_id: string
+          canva_urls?: Json | null
+          created_at?: string | null
+          design_type?: string | null
+          id?: string
+          metadata?: Json | null
+          status?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          canva_design_id?: string
+          canva_urls?: Json | null
+          created_at?: string | null
+          design_type?: string | null
+          id?: string
+          metadata?: Json | null
+          status?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           category: string | null
@@ -193,6 +459,373 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      email_workflows: {
+        Row: {
+          content: string
+          created_at: string | null
+          desired_tone: Database["public"]["Enums"]["story_tone"] | null
+          email_content_pointers: string | null
+          exclude_conditions: string | null
+          id: string
+          is_demo: boolean | null
+          number_of_emails: number | null
+          target_audience: string | null
+          title: string
+          trigger_event: string | null
+          updated_at: string | null
+          user_id: string | null
+          workflow_goal: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          desired_tone?: Database["public"]["Enums"]["story_tone"] | null
+          email_content_pointers?: string | null
+          exclude_conditions?: string | null
+          id?: string
+          is_demo?: boolean | null
+          number_of_emails?: number | null
+          target_audience?: string | null
+          title: string
+          trigger_event?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          workflow_goal?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          desired_tone?: Database["public"]["Enums"]["story_tone"] | null
+          email_content_pointers?: string | null
+          exclude_conditions?: string | null
+          id?: string
+          is_demo?: boolean | null
+          number_of_emails?: number | null
+          target_audience?: string | null
+          title?: string
+          trigger_event?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          workflow_goal?: string | null
+        }
+        Relationships: []
+      }
+      faq_results: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          num_questions: number | null
+          target_audience: string | null
+          title: string | null
+          tone: Database["public"]["Enums"]["story_tone"] | null
+          topic: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          num_questions?: number | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          topic?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          num_questions?: number | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          topic?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      finance_results: {
+        Row: {
+          analysis_type: string | null
+          content: string
+          created_at: string | null
+          currency: string | null
+          id: string
+          is_demo: boolean | null
+          time_period: string | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          analysis_type?: string | null
+          content: string
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          is_demo?: boolean | null
+          time_period?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          analysis_type?: string | null
+          content?: string
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          is_demo?: boolean | null
+          time_period?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      funnel_results: {
+        Row: {
+          content: string
+          conversion_goals: string | null
+          created_at: string | null
+          funnel_type: string | null
+          id: string
+          is_demo: boolean | null
+          target_audience: string | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          conversion_goals?: string | null
+          created_at?: string | null
+          funnel_type?: string | null
+          id?: string
+          is_demo?: boolean | null
+          target_audience?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          conversion_goals?: string | null
+          created_at?: string | null
+          funnel_type?: string | null
+          id?: string
+          is_demo?: boolean | null
+          target_audience?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      gallery_images: {
+        Row: {
+          created_at: string
+          description: string | null
+          gallery_id: string
+          id: string
+          metadata: Json | null
+          storage_path: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          gallery_id: string
+          id?: string
+          metadata?: Json | null
+          storage_path: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          gallery_id?: string
+          id?: string
+          metadata?: Json | null
+          storage_path?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gallery_images_gallery_id_fkey"
+            columns: ["gallery_id"]
+            isOneToOne: false
+            referencedRelation: "image_galleries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      generated_content: {
+        Row: {
+          content: string
+          content_type: string
+          created_at: string
+          id: string
+          input_data: Json | null
+          provider: string
+          sub_type: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          content_type: string
+          created_at?: string
+          id?: string
+          input_data?: Json | null
+          provider: string
+          sub_type?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          input_data?: Json | null
+          provider?: string
+          sub_type?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      generated_images: {
+        Row: {
+          base64_data: string
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          prompt: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          base64_data: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          prompt: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          base64_data?: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          prompt?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      generated_stories: {
+        Row: {
+          brand_name: string | null
+          brand_values: string | null
+          content: string
+          created_at: string | null
+          desired_length: Database["public"]["Enums"]["story_length"] | null
+          id: string
+          is_demo: boolean | null
+          num_variations: number | null
+          story_tone: Database["public"]["Enums"]["story_tone"] | null
+          story_type: Database["public"]["Enums"]["story_type"] | null
+          target_audience: string | null
+          title: string | null
+          unique_selling_proposition: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          brand_name?: string | null
+          brand_values?: string | null
+          content: string
+          created_at?: string | null
+          desired_length?: Database["public"]["Enums"]["story_length"] | null
+          id?: string
+          is_demo?: boolean | null
+          num_variations?: number | null
+          story_tone?: Database["public"]["Enums"]["story_tone"] | null
+          story_type?: Database["public"]["Enums"]["story_type"] | null
+          target_audience?: string | null
+          title?: string | null
+          unique_selling_proposition?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          brand_name?: string | null
+          brand_values?: string | null
+          content?: string
+          created_at?: string | null
+          desired_length?: Database["public"]["Enums"]["story_length"] | null
+          id?: string
+          is_demo?: boolean | null
+          num_variations?: number | null
+          story_tone?: Database["public"]["Enums"]["story_tone"] | null
+          story_type?: Database["public"]["Enums"]["story_type"] | null
+          target_audience?: string | null
+          title?: string | null
+          unique_selling_proposition?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      generation_results: {
+        Row: {
+          created_at: string
+          generated_output: Json | null
+          id: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          generated_output?: Json | null
+          id?: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          generated_output?: Json | null
+          id?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generation_results_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "user_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
       }
       hook_executions: {
         Row: {
@@ -280,6 +913,105 @@ export type Database = {
           webhook_headers?: Json | null
           webhook_method?: string | null
           webhook_url?: string | null
+        }
+        Relationships: []
+      }
+      image_galleries: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      innovation_results: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          industry: string | null
+          innovation_type: string | null
+          is_demo: boolean | null
+          target_market: string | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          innovation_type?: string | null
+          is_demo?: boolean | null
+          target_market?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          innovation_type?: string | null
+          is_demo?: boolean | null
+          target_market?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      knowledge_bot_sessions: {
+        Row: {
+          context_data: Json | null
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          messages: Json
+          session_title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          context_data?: Json | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          messages: Json
+          session_title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          context_data?: Json | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          messages?: Json
+          session_title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -379,6 +1111,51 @@ export type Database = {
         }
         Relationships: []
       }
+      meeting_summaries: {
+        Row: {
+          action_items: string | null
+          content: string
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          key_decisions: string | null
+          meeting_date: string | null
+          meeting_transcript: string | null
+          participants: string[] | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action_items?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          key_decisions?: string | null
+          meeting_date?: string | null
+          meeting_transcript?: string | null
+          participants?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action_items?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          key_decisions?: string | null
+          meeting_date?: string | null
+          meeting_transcript?: string | null
+          participants?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           chat_id: string
@@ -411,9 +1188,191 @@ export type Database = {
           },
         ]
       }
+      naming_results: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          industry: string | null
+          is_demo: boolean | null
+          keywords: string[] | null
+          naming_type: string | null
+          target_audience: string | null
+          title: string | null
+          tone: Database["public"]["Enums"]["story_tone"] | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_demo?: boolean | null
+          keywords?: string[] | null
+          naming_type?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_demo?: boolean | null
+          keywords?: string[] | null
+          naming_type?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      onboarding_responses: {
+        Row: {
+          answer: string
+          created_at: string
+          id: string
+          question_id: string
+          question_text: string
+          step_number: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answer: string
+          created_at?: string
+          id?: string
+          question_id: string
+          question_text: string
+          step_number: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answer?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+          question_text?: string
+          step_number?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      personal_heroes: {
+        Row: {
+          created_at: string
+          html_content: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          html_content: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          html_content?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          content: string
+          created_at: string
+          excerpt: string | null
+          id: string
+          published_at: string | null
+          seo_keywords: string[] | null
+          seo_meta_description: string | null
+          seo_status: Database["public"]["Enums"]["seo_status_enum"]
+          seo_title: string | null
+          slug: string | null
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published_at?: string | null
+          seo_keywords?: string[] | null
+          seo_meta_description?: string | null
+          seo_status?: Database["public"]["Enums"]["seo_status_enum"]
+          seo_title?: string | null
+          slug?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published_at?: string | null
+          seo_keywords?: string[] | null
+          seo_meta_description?: string | null
+          seo_status?: Database["public"]["Enums"]["seo_status_enum"]
+          seo_title?: string | null
+          slug?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      predefined_prompts: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          template: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          template: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          template?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
+          canva_team_id: string | null
+          canva_user_id: string | null
           created_at: string
           email: string
           full_name: string | null
@@ -422,6 +1381,8 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          canva_team_id?: string | null
+          canva_user_id?: string | null
           created_at?: string
           email: string
           full_name?: string | null
@@ -430,6 +1391,8 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          canva_team_id?: string | null
+          canva_user_id?: string | null
           created_at?: string
           email?: string
           full_name?: string | null
@@ -597,6 +1560,93 @@ export type Database = {
           updated_at?: string | null
           url?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      social_media_posts: {
+        Row: {
+          content: string
+          created_at: string | null
+          hashtags: string[] | null
+          id: string
+          is_demo: boolean | null
+          platform: string | null
+          post_type: string | null
+          target_audience: string | null
+          title: string | null
+          tone: Database["public"]["Enums"]["story_tone"] | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          hashtags?: string[] | null
+          id?: string
+          is_demo?: boolean | null
+          platform?: string | null
+          post_type?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          hashtags?: string[] | null
+          id?: string
+          is_demo?: boolean | null
+          platform?: string | null
+          post_type?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      strategy_results: {
+        Row: {
+          analysis_type: string | null
+          content: string
+          created_at: string | null
+          id: string
+          industry: string | null
+          is_demo: boolean | null
+          target_market: string | null
+          time_horizon: string | null
+          title: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          analysis_type?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_demo?: boolean | null
+          target_market?: string | null
+          time_horizon?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          analysis_type?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          industry?: string | null
+          is_demo?: boolean | null
+          target_market?: string | null
+          time_horizon?: string | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -774,6 +1824,290 @@ export type Database = {
         }
         Relationships: []
       }
+      task_lists: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          list_id: string
+          priority: string | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          list_id: string
+          priority?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          list_id?: string
+          priority?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_list_id_fkey"
+            columns: ["list_id"]
+            isOneToOne: false
+            referencedRelation: "task_lists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_api_keys: {
+        Row: {
+          api_key: string
+          created_at: string
+          id: string
+          provider: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          api_key: string
+          created_at?: string
+          id?: string
+          provider: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          api_key?: string
+          created_at?: string
+          id?: string
+          provider?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_credentials: {
+        Row: {
+          access_token: string | null
+          created_at: string | null
+          id: string
+          provider: string
+          refresh_token: string | null
+          token_expires_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string | null
+          id?: string
+          provider?: string
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string | null
+          id?: string
+          provider?: string
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          session_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_events_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "user_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      user_preferences: {
+        Row: {
+          created_at: string | null
+          id: string
+          preferences: Json | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          preferences?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          preferences?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          brand_keywords: string[] | null
+          brand_tone: Database["public"]["Enums"]["story_tone"] | null
+          business_industry: string | null
+          business_name: string | null
+          created_at: string | null
+          id: string
+          key_demographics: string | null
+          primary_goals: Database["public"]["Enums"]["onboarding_goal"][] | null
+          products_services: string | null
+          system_prompt_preview: string | null
+          target_audience_description: string | null
+          tool_stack: string[] | null
+          updated_at: string | null
+          user_id: string | null
+          user_role: Database["public"]["Enums"]["user_role"] | null
+        }
+        Insert: {
+          brand_keywords?: string[] | null
+          brand_tone?: Database["public"]["Enums"]["story_tone"] | null
+          business_industry?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          key_demographics?: string | null
+          primary_goals?:
+            | Database["public"]["Enums"]["onboarding_goal"][]
+            | null
+          products_services?: string | null
+          system_prompt_preview?: string | null
+          target_audience_description?: string | null
+          tool_stack?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+          user_role?: Database["public"]["Enums"]["user_role"] | null
+        }
+        Update: {
+          brand_keywords?: string[] | null
+          brand_tone?: Database["public"]["Enums"]["story_tone"] | null
+          business_industry?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          key_demographics?: string | null
+          primary_goals?:
+            | Database["public"]["Enums"]["onboarding_goal"][]
+            | null
+          products_services?: string | null
+          system_prompt_preview?: string | null
+          target_audience_description?: string | null
+          tool_stack?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+          user_role?: Database["public"]["Enums"]["user_role"] | null
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          created_at: string
+          expert_page: string
+          id: string
+          input_data: Json | null
+          session_id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expert_page: string
+          id?: string
+          input_data?: Json | null
+          session_id?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expert_page?: string
+          id?: string
+          input_data?: Json | null
+          session_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_settings: {
         Row: {
           api_keys: Json
@@ -819,6 +2153,51 @@ export type Database = {
         Update: {
           created_at?: string
           id?: number
+        }
+        Relationships: []
+      }
+      video_scripts: {
+        Row: {
+          content: string
+          created_at: string | null
+          duration_minutes: number | null
+          id: string
+          is_demo: boolean | null
+          key_message: string | null
+          target_audience: string | null
+          title: string | null
+          tone: Database["public"]["Enums"]["story_tone"] | null
+          updated_at: string | null
+          user_id: string | null
+          video_type: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_demo?: boolean | null
+          key_message?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+          video_type?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_demo?: boolean | null
+          key_message?: string | null
+          target_audience?: string | null
+          title?: string | null
+          tone?: Database["public"]["Enums"]["story_tone"] | null
+          updated_at?: string | null
+          user_id?: string | null
+          video_type?: string | null
         }
         Relationships: []
       }
@@ -987,6 +2366,50 @@ export type Database = {
         }
         Relationships: []
       }
+      workflow_nodes: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          node_id: string
+          position_x: number | null
+          position_y: number | null
+          title: string
+          type: Database["public"]["Enums"]["workflow_node_type"]
+          workflow_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          node_id: string
+          position_x?: number | null
+          position_y?: number | null
+          title: string
+          type: Database["public"]["Enums"]["workflow_node_type"]
+          workflow_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          node_id?: string
+          position_x?: number | null
+          position_y?: number | null
+          title?: string
+          type?: Database["public"]["Enums"]["workflow_node_type"]
+          workflow_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_nodes_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "email_workflows"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workflow_webhooks: {
         Row: {
           created_at: string | null
@@ -1119,6 +2542,34 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      onboarding_goal:
+        | "Content-Erstellung beschleunigen"
+        | "Markenpositionierung stärken"
+        | "Social Media optimieren"
+        | "E-Mail Marketing verbessern"
+        | "Verkaufsprozesse automatisieren"
+        | "Kundenkommunikation optimieren"
+        | "Innovationsprozesse unterstützen"
+        | "Workflows digitalisieren"
+      seo_status_enum: "pending" | "processing" | "completed" | "failed"
+      story_length: "SHORT" | "MEDIUM" | "LONG"
+      story_tone:
+        | "PROFESSIONAL"
+        | "CASUAL"
+        | "FRIENDLY"
+        | "FORMAL"
+        | "ENTHUSIASTIC"
+        | "INFORMATIVE"
+        | "INSPIRATIONAL"
+        | "EMOTIONAL"
+        | "HUMOROUS"
+        | "AUTHORITATIVE"
+      story_type:
+        | "BRAND_ORIGIN"
+        | "CUSTOMER_SUCCESS"
+        | "PRODUCT_STORY"
+        | "FOUNDER_STORY"
+        | "MISSION_STORY"
       stripe_order_status: "pending" | "completed" | "canceled"
       stripe_subscription_status:
         | "not_started"
@@ -1130,6 +2581,17 @@ export type Database = {
         | "canceled"
         | "unpaid"
         | "paused"
+      user_role:
+        | "CEO/Gründer"
+        | "Marketing Manager"
+        | "Content Creator"
+        | "Social Media Manager"
+        | "Vertriebsleiter"
+        | "Produktmanager"
+        | "Freelancer"
+        | "Berater"
+        | "Anderes"
+      workflow_node_type: "TRIGGER" | "ACTION" | "DELAY" | "CONDITION"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1245,6 +2707,37 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      onboarding_goal: [
+        "Content-Erstellung beschleunigen",
+        "Markenpositionierung stärken",
+        "Social Media optimieren",
+        "E-Mail Marketing verbessern",
+        "Verkaufsprozesse automatisieren",
+        "Kundenkommunikation optimieren",
+        "Innovationsprozesse unterstützen",
+        "Workflows digitalisieren",
+      ],
+      seo_status_enum: ["pending", "processing", "completed", "failed"],
+      story_length: ["SHORT", "MEDIUM", "LONG"],
+      story_tone: [
+        "PROFESSIONAL",
+        "CASUAL",
+        "FRIENDLY",
+        "FORMAL",
+        "ENTHUSIASTIC",
+        "INFORMATIVE",
+        "INSPIRATIONAL",
+        "EMOTIONAL",
+        "HUMOROUS",
+        "AUTHORITATIVE",
+      ],
+      story_type: [
+        "BRAND_ORIGIN",
+        "CUSTOMER_SUCCESS",
+        "PRODUCT_STORY",
+        "FOUNDER_STORY",
+        "MISSION_STORY",
+      ],
       stripe_order_status: ["pending", "completed", "canceled"],
       stripe_subscription_status: [
         "not_started",
@@ -1257,6 +2750,18 @@ export const Constants = {
         "unpaid",
         "paused",
       ],
+      user_role: [
+        "CEO/Gründer",
+        "Marketing Manager",
+        "Content Creator",
+        "Social Media Manager",
+        "Vertriebsleiter",
+        "Produktmanager",
+        "Freelancer",
+        "Berater",
+        "Anderes",
+      ],
+      workflow_node_type: ["TRIGGER", "ACTION", "DELAY", "CONDITION"],
     },
   },
 } as const

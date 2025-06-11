@@ -1,4 +1,3 @@
-
 import React, { useCallback, useRef, useState } from 'react';
 import { 
   ReactFlow, 
@@ -25,7 +24,7 @@ import NodeCatalog from './NodeCatalog';
 import WorkflowTools from './WorkflowTools';
 import { useToast } from '@/hooks/use-toast';
 
-// Define node types
+// Define node types with proper typing
 const nodeTypes: ReactFlowNodeTypes = {
   custom: WorkflowNode,
 };
