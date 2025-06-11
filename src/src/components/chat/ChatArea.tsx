@@ -1,7 +1,7 @@
 
 "use client";
 
-import type { Message, FileObject } from "@/types";
+import type { Message, FileObject } from "@/src/types";
 import React, { useState, useEffect, useCallback } from "react";
 import { MessageList } from "./MessageList";
 import { MessageInput } from "./MessageInput";

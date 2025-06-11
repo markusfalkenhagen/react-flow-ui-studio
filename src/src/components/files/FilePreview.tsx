@@ -1,7 +1,7 @@
+
 "use client";
 
-import type { FileObject } from "@/types";
-import Image from "next/image";
+import type { FileObject } from "@/src/types";
 import { FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -14,11 +14,9 @@ export function FilePreview({ file }: FilePreviewProps) {
     <div className="mt-2 max-w-xs rounded-lg border bg-card p-3 shadow-sm">
       <div className="flex items-center gap-3">
         {file.isImage ? (
-          <Image
+          <img
             src={file.url}
             alt={file.name}
-            width={64}
-            height={64}
             className="h-16 w-16 rounded-md object-cover"
           />
         ) : (

@@ -1,9 +1,10 @@
+
 "use client";
 
-import type { Message } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { Message } from "@/src/types";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { BotIcon, UserCircle2, Info } from "lucide-react";
-import { FilePreview } from "@/components/files/FilePreview";
+import { FilePreview } from "@/src/components/files/FilePreview";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { ScrollArea } from "@/components/ui/scroll-area";
