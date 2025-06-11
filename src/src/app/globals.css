@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 96%; /* Light Gray #F5F5F5 */
+    --foreground: 0 0% 3.9%; /* Default dark text */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 217 91% 58%; /* Calm Blue #4285F4 */
+    --primary-foreground: 0 0% 98%; /* White text on primary */
+    --secondary: 0 0% 92%; /* Slightly darker than background for secondary elements */
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 90%; /* Muted tones */
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 119 38% 56%; /* Muted Green #67B965 */
+    --accent-foreground: 0 0% 98%; /* White text on accent */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 217 91% 58%; /* Primary color for rings */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+
+    /* Sidebar Variables - Light Theme */
+    --sidebar-background: 0 0% 97%; /* Slightly off-white, distinct from main bg */
+    --sidebar-foreground: 0 0% 20%; /* Darker text for sidebar */
+    --sidebar-primary: 217 91% 58%; /* Primary blue */
+    --sidebar-primary-foreground: 0 0% 98%; /* White text */
+    --sidebar-accent: 217 91% 50%; /* Darker shade of primary for hover/active */
+    --sidebar-accent-foreground: 0 0% 98%; /* White text */
+    --sidebar-border: 0 0% 90%; /* Border for sidebar elements */
+    --sidebar-ring: 217 91% 58%; /* Ring color, same as primary */
+  }
+
+  .dark {
+    --background: 0 0% 10%; /* Dark background */
+    --foreground: 0 0% 98%; /* Light text */
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217 91% 65%; /* Lighter Blue for dark mode */
+    --primary-foreground: 0 0% 98%; /* White text */
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 119 38% 60%; /* Lighter Green for dark mode */
+    --accent-foreground: 0 0% 98%; /* White text */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%; /* Darker border */
+    --input: 0 0% 20%; /* Darker input */
+    --ring: 217 91% 65%; /* Primary color for rings in dark mode */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    /* Sidebar Variables - Dark Theme */
+    --sidebar-background: 0 0% 8%; /* Very dark, slightly different from main dark bg */
+    --sidebar-foreground: 0 0% 80%; /* Lighter text */
+    --sidebar-primary: 217 91% 65%; /* Primary blue for dark mode */
+    --sidebar-primary-foreground: 0 0% 98%; /* White text */
+    --sidebar-accent: 217 91% 55%; /* Slightly different shade for hover/active */
+    --sidebar-accent-foreground: 0 0% 98%; /* White text */
+    --sidebar-border: 0 0% 15%; /* Border for dark sidebar elements */
+    --sidebar-ring: 217 91% 65%; /* Ring color for dark sidebar */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
