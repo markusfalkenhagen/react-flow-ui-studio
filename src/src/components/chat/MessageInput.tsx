@@ -1,6 +1,7 @@
+
 "use client";
 
-import type { FileObject } from "@/types";
+import type { FileObject } from "@/src/types";
 import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
