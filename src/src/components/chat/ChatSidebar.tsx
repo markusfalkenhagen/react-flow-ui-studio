@@ -11,30 +11,33 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { Bot, MessageSquarePlus, Settings, History, Home } from "lucide-react"; // Added Home
+import { Bot, MessageSquarePlus, Settings, History, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from 'next/navigation';
 
 export function ChatSidebar() {
   const { toast } = useToast();
-  const router = useRouter();
 
   const handleNewChat = () => {
+    // Clear the current chat or start a new one
+    window.location.reload();
     toast({
-      title: "New Chat",
-      description: "Legacy chat functionality. FlowHero's main interface is task-based.",
+      title: "New Chat Started",
+      description: "Ready for a fresh conversation!",
     });
-     // If you want to navigate to a new chat page, for example:
-     // router.push('/chat/new'); 
-     // For now, we assume the main page is the primary interaction.
   };
 
-  const handleNavigateToSettings = () => {
-    router.push('/settings');
+  const handleClearHistory = () => {
+    toast({
+      title: "Clear History",
+      description: "Chat history clearing functionality to be implemented.",
+    });
   };
 
-  const handleNavigateHome = () => {
-    router.push('/');
+  const handleSettings = () => {
+    toast({
+      title: "Settings",
+      description: "Settings panel coming soon!",
+    });
   };
   
   return (
@@ -42,38 +45,38 @@ export function ChatSidebar() {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
           <Bot className="h-7 w-7 text-primary" />
-          <span className="text-lg font-semibold font-headline group-data-[collapsible=icon]:hidden">FlowHero</span>
+          <span className="text-lg font-semibold group-data-[collapsible=icon]:hidden">FlowHero</span>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleNavigateHome} className="w-full justify-start" tooltip="Home / New Task">
-              <Home /> 
-              <span>Home</span>
+            <SidebarMenuButton onClick={handleNewChat} className="w-full justify-start" tooltip="New Chat">
+              <MessageSquarePlus />
+              <span>New Chat</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-           <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleNewChat} className="w-full justify-start" tooltip="Legacy Chat (Example)">
-              <MessageSquarePlus />
-              <span>Old Chat UI</span>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={handleClearHistory} className="w-full justify-start" tooltip="Clear History">
+              <Trash2 />
+              <span>Clear History</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         <div className="mt-4 px-2">
           <h3 className="mb-2 text-xs font-medium text-muted-foreground group-data-[collapsible=icon]:hidden">
-            Task History
+            Chat History
           </h3>
           <div className="text-sm text-muted-foreground group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
              <History className="h-5 w-5 group-data-[collapsible=icon]:block hidden mb-2" />
-            <span className="group-data-[collapsible=icon]:hidden">Your task history will appear here.</span>
+            <span className="group-data-[collapsible=icon]:hidden">Your conversations will appear here.</span>
           </div>
         </div>
       </SidebarContent>
       <SidebarFooter className="p-2">
          <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleNavigateToSettings} className="w-full justify-start" tooltip="Settings">
+            <SidebarMenuButton onClick={handleSettings} className="w-full justify-start" tooltip="Settings">
               <Settings />
               <span>Settings</span>
             </SidebarMenuButton>
